@@ -109,3 +109,4 @@ frontend/
     pages/          # Login, Register, Profile, Attendance, DailyUpdate, Leave, MyKpis
     pages/admin/    # Dashboard, Projects, Users, Attendance, DailyUpdates, Leave, Kpis
 ```
+# team_management_system
