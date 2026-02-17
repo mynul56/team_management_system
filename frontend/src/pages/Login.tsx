@@ -16,8 +16,6 @@ import {
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import GoogleIcon from '@mui/icons-material/Google';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Login() {
@@ -101,11 +99,6 @@ export default function Login() {
               />
             </Stack>
 
-            <Box sx={{ my: 2, display: 'flex', justifyContent: 'flex-end' }}>
-              <MuiLink component={Link} to="#" variant="body2" color="text.secondary">
-                Forgot password?
-              </MuiLink>
-            </Box>
 
             <Button
               type="submit"
@@ -118,20 +111,6 @@ export default function Login() {
             </Button>
           </form>
 
-          <Divider sx={{ my: 3 }}>
-            <Typography variant="body2" color="text.secondary">
-              OR
-            </Typography>
-          </Divider>
-
-          <Stack direction="row" spacing={2} justifyContent="center">
-            <IconButton size="large" color="inherit" sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
-              <GoogleIcon sx={{ color: '#DF3E30' }} />
-            </IconButton>
-            <IconButton size="large" color="inherit" sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
-              <GitHubIcon />
-            </IconButton>
-          </Stack>
 
           <Typography sx={{ mt: 3, textAlign: 'center' }} variant="body2">
             Don't have an account?{' '}
