@@ -76,7 +76,7 @@ export default function Register() {
         <CardContent sx={{ p: 4 }}>
           <Box sx={{ mb: 3, textAlign: 'center' }}>
             <Typography variant="h4" gutterBottom fontWeight={700}>
-              Get started with TeamSync
+              Get started with Team AlphaPrime
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Create your account to join the team.

@@ -21,7 +21,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     const [notifications, setNotifications] = useState<Notification[]>([
         {
             id: '1',
-            title: 'Welcome to TeamSync',
+            title: 'Welcome to Team AlphaPrime',
             message: 'Your account has been successfully created. Please update your profile.',
             read: false,
             createdAt: new Date().toISOString(),

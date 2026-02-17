@@ -57,7 +57,7 @@ export default function Login() {
               sx={{ width: 48, height: 48, mb: 1 }}
             />
             <Typography variant="h4" gutterBottom fontWeight={700}>
-              Sign in to TeamSync
+              Sign in to Team AlphaPrime
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Enter your details below.

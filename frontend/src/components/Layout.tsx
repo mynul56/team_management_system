@@ -107,7 +107,7 @@ export default function Layout() {
           alt="Logo"
         />
         <Typography variant="h6" sx={{ fontWeight: 700, color: 'primary.main' }}>
-          TeamSync
+          Team AlphaPrime
         </Typography>
       </Box>
 
