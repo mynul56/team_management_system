@@ -12,7 +12,7 @@ export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(ProjectAssignment.name) private assignmentModel: Model<ProjectAssignment>,
-  ) {}
+  ) { }
 
   async findById(id: string) {
     const user = await this.userModel.findById(id).select('-passwordHash').lean();
@@ -67,5 +67,12 @@ export class UsersService {
     ).select('-passwordHash');
     if (!user) throw new NotFoundException('User not found');
     return user;
+  }
+
+  async remove(id: string) {
+    const user = await this.userModel.findByIdAndDelete(id);
+    if (!user) throw new NotFoundException('User not found');
+    await this.assignmentModel.deleteMany({ userId: id });
+    return { message: 'User deleted' };
   }
 }

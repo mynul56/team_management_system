@@ -49,6 +49,9 @@ let UsersController = class UsersController {
     updateByAdmin(adminId, targetUserId, dto) {
         return this.usersService.updateByAdmin(adminId, targetUserId, dto);
     }
+    remove(id) {
+        return this.usersService.remove(id);
+    }
 };
 exports.UsersController = UsersController;
 __decorate([
@@ -107,6 +110,15 @@ __decorate([
     __metadata("design:paramtypes", [String, String, update_user_admin_dto_1.UpdateUserAdminDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "updateByAdmin", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(enums_1.UserRole.ADMIN),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "remove", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),

@@ -17,6 +17,7 @@ import {
   TextField,
   MenuItem,
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { api } from '../../api/client';
 
 const POSITIONS = ['ui_ux_designer', 'web_developer_frontend', 'web_developer_backend', 'web_developer_fullstack', 'flutter_developer', 'ai_ml_developer'];
@@ -28,6 +29,7 @@ export default function Users() {
   const [list, setList] = useState<Record<string, unknown>[]>([]);
   const [pending, setPending] = useState<Record<string, unknown>[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const load = () => {
     Promise.all([
@@ -42,6 +44,13 @@ export default function Users() {
 
   const approve = async (id: string) => {
     await api.put(`/users/${id}/approve`);
+    load();
+  };
+
+  const handleDelete = async () => {
+    if (!deleteId) return;
+    await api.delete(`/users/${deleteId}`);
+    setDeleteId(null);
     load();
   };
 
@@ -80,34 +89,48 @@ export default function Users() {
           </Table>
         </Card>
       )}
-      <Card>
-        <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Position</TableCell>
-              <TableCell>Seniority</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Status</TableCell>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Position</TableCell>
+            <TableCell>Seniority</TableCell>
+            <TableCell>Role</TableCell>
+            <TableCell>Status</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {list.map((u: Record<string, unknown>) => (
+            <TableRow key={(u as { _id: string })._id}>
+              <TableCell>{(u as { name: string }).name}</TableCell>
+              <TableCell>{(u as { email: string }).email}</TableCell>
+              <TableCell>{label((u as { position: string }).position)}</TableCell>
+              <TableCell>{label((u as { seniority: string }).seniority)}</TableCell>
+              <TableCell><Chip size="small" label={(u as { role: string }).role} /></TableCell>
+              <TableCell>
+                <Chip size="small" color={(u as { isActive: boolean }).isActive ? 'success' : 'default'} label={(u as { isActive: boolean }).isActive ? 'Active' : 'Inactive'} />
+              </TableCell>
+              <TableCell align="right">
+                <Button size="small" color="error" startIcon={<DeleteIcon />} onClick={() => setDeleteId((u as { _id: string })._id)}>
+                  Remove
+                </Button>
+              </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {list.map((u: Record<string, unknown>) => (
-              <TableRow key={(u as { _id: string })._id}>
-                <TableCell>{(u as { name: string }).name}</TableCell>
-                <TableCell>{(u as { email: string }).email}</TableCell>
-                <TableCell>{label((u as { position: string }).position)}</TableCell>
-                <TableCell>{label((u as { seniority: string }).seniority)}</TableCell>
-                <TableCell><Chip size="small" label={(u as { role: string }).role} /></TableCell>
-                <TableCell>
-                  <Chip size="small" color={(u as { isActive: boolean }).isActive ? 'success' : 'default'} label={(u as { isActive: boolean }).isActive ? 'Active' : 'Inactive'} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Card>
-    </Box>
+          ))}
+        </TableBody>
+      </Table>
+
+      <Dialog open={!!deleteId} onClose={() => setDeleteId(null)}>
+        <DialogTitle>Confirm Removal</DialogTitle>
+        <DialogContent>
+          Are you sure you want to remove this member? This action cannot be undone.
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteId(null)}>Cancel</Button>
+          <Button color="error" variant="contained" onClick={handleDelete}>Remove</Button>
+        </DialogActions>
+      </Dialog>
+    </Box >
   );
 }

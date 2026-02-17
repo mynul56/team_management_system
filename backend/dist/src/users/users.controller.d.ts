@@ -31,4 +31,7 @@ export declare class UsersController {
     }> & {
         __v: number;
     }>;
+    remove(id: string): Promise<{
+        message: string;
+    }>;
 }

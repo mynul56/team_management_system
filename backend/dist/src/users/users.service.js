@@ -69,6 +69,13 @@ let UsersService = class UsersService {
             throw new common_1.NotFoundException('User not found');
         return user;
     }
+    async remove(id) {
+        const user = await this.userModel.findByIdAndDelete(id);
+        if (!user)
+            throw new common_1.NotFoundException('User not found');
+        await this.assignmentModel.deleteMany({ userId: id });
+        return { message: 'User deleted' };
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([

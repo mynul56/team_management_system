@@ -39,4 +39,7 @@ export declare class UsersService {
     }> & {
         __v: number;
     }>;
+    remove(id: string): Promise<{
+        message: string;
+    }>;
 }

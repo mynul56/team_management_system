@@ -1,8 +1,8 @@
-import { createTheme } from '@mui/material/styles';
+import { ThemeOptions } from '@mui/material/styles';
 
-export const theme = createTheme({
+export const getTheme = (mode: 'light' | 'dark'): ThemeOptions => ({
   palette: {
-    mode: 'light',
+    mode,
     primary: {
       main: '#1565C0', // Indigo/Blue
       light: '#5E92F3',
@@ -31,12 +31,12 @@ export const theme = createTheme({
       dark: '#01579B',
     },
     background: {
-      default: '#F4F6F8', // Soft gray background
-      paper: '#FFFFFF',
+      default: mode === 'light' ? '#F4F6F8' : '#161C24',
+      paper: mode === 'light' ? '#FFFFFF' : '#212B36',
     },
     text: {
-      primary: '#212B36',
-      secondary: '#637381',
+      primary: mode === 'light' ? '#212B36' : '#FFFFFF',
+      secondary: mode === 'light' ? '#637381' : '#919EAB',
     },
   },
   typography: {
@@ -54,7 +54,7 @@ export const theme = createTheme({
     button: { fontWeight: 700, textTransform: 'none' },
   },
   shape: {
-    borderRadius: 12, // Modern rounded corners
+    borderRadius: 12,
   },
   components: {
     MuiCssBaseline: {
@@ -82,8 +82,10 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 16,
-          boxShadow: '0 0 2px 0 rgba(145, 158, 171, 0.2), 0 12px 24px -4px rgba(145, 158, 171, 0.12)',
-          border: '1px solid rgba(145, 158, 171, 0.08)',
+          boxShadow: mode === 'light'
+            ? '0 0 2px 0 rgba(145, 158, 171, 0.2), 0 12px 24px -4px rgba(145, 158, 171, 0.12)'
+            : '0 0 2px 0 rgba(0, 0, 0, 0.2), 0 12px 24px -4px rgba(0, 0, 0, 0.12)',
+          border: `1px solid ${mode === 'light' ? 'rgba(145, 158, 171, 0.08)' : 'rgba(145, 158, 171, 0.12)'}`,
         },
       },
     },
@@ -97,19 +99,19 @@ export const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          backgroundColor: mode === 'light' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(22, 28, 36, 0.9)',
           backdropFilter: 'blur(6px)',
-          color: '#212B36',
+          color: mode === 'light' ? '#212B36' : '#FFFFFF',
           boxShadow: 'none',
-          borderBottom: '1px dashed rgba(145, 158, 171, 0.24)',
+          borderBottom: `1px dashed ${mode === 'light' ? 'rgba(145, 158, 171, 0.24)' : 'rgba(145, 158, 171, 0.24)'}`,
         },
       },
     },
     MuiDrawer: {
       styleOverrides: {
         paper: {
-          borderRight: '1px dashed rgba(145, 158, 171, 0.24)',
-          backgroundColor: '#FFFFFF',
+          borderRight: `1px dashed ${mode === 'light' ? 'rgba(145, 158, 171, 0.24)' : 'rgba(145, 158, 171, 0.24)'}`,
+          backgroundColor: mode === 'light' ? '#FFFFFF' : '#212B36',
         },
       },
     },

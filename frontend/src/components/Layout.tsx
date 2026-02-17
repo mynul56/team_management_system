@@ -31,6 +31,8 @@ import FolderIcon from '@mui/icons-material/Folder';
 import PeopleIcon from '@mui/icons-material/People';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
@@ -60,11 +62,13 @@ const adminNav = [
 ];
 
 import { useNotification } from '../contexts/NotificationContext';
+import { useThemeContext } from '../contexts/ThemeContext';
 
 export default function Layout() {
   const [open, setOpen] = useState(false);
   const { user, logout } = useAuth();
   const { unreadCount, markAllAsRead, notifications } = useNotification();
+  const { mode, toggleColorMode } = useThemeContext();
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
@@ -182,6 +186,10 @@ export default function Layout() {
                 {time.format('ddd, MMM D')}
               </Typography>
             </Box>
+
+            <IconButton onClick={toggleColorMode} color="inherit">
+              {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
 
             <IconButton color="default" onClick={handleNotifMenu}>
               <Badge badgeContent={unreadCount} color="error">

@@ -4,20 +4,20 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { AuthProvider } from './contexts/AuthContext';
 import { NotificationProvider } from './contexts/NotificationContext';
-import { theme } from './theme';
+import { ThemeContextProvider } from './contexts/ThemeContext';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
+      <ThemeContextProvider>
         <CssBaseline />
         <AuthProvider>
           <NotificationProvider>
             <App />
           </NotificationProvider>
         </AuthProvider>
-      </ThemeProvider>
+      </ThemeContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
